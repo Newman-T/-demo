@@ -1,0 +1,14 @@
+/**app.wxss**/
+
+@import "./vendor/iconfont/iconfont.wxss";
+button {
+  padding: 0;
+  background-color: transparent;
+  border-radius: 0;
+}
+button::after{
+  border:none;
+}
+.button-hover {
+  background-color: transparent;
+}

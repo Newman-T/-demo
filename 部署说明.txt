@@ -1,0 +1,10 @@
+﻿1、文件结构说明
+pages ----------  小程序页面代码目录
+    project  -----  项目端页面代码文件目录
+    customer -----  客户端页面代码文件目录
+
+2、配置文件说明
+
+.example后缀的文件为示例配置文件，将.example去掉，根据你的环境需要修改为你的自定义配置内容
+
+如将project.config.json.example改为project.config.json即可
