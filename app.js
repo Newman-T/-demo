@@ -1,6 +1,7 @@
 //app.js
 
 var util = require('./utils/util.js');
+const http = require('./utils/http.js');
 App({
   onLaunch: function () {
     console.log('App Launch')
@@ -16,27 +17,43 @@ App({
       var params = {
         mobile: wx.getStorageSync('mobile'),
         type: 1,
-        role_id: 1
+        role_id: 1//角色id
       }
       var sessionkey = wx.getStorageSync('sessionkey')
-      wx.request({
-        url: that.globalData.domain + 'api/login/login',
-        method: 'POST',
-        header: {
-          'Content-Type': 'json',
-          role: '1',
-          sessionkey: sessionkey,
-        },
-        data: params,
-        success: function (res) {
+      
+
+      http.post1(
+        app.globalData.domain + 'api/login/login',
+        params,
+        function (res) {
+          console.log(res)
           if (res.data.code == 40001) {
             wx.setStorageSync('role_id', params.role_id)
           }
         },
-        fail: function (err) {
-          console.log(err)
+        function (error) {
+          console.log(error)
         }
-      })
+      )
+
+      // wx.request({
+      //   url: that.globalData.domain + 'api/login/login',
+      //   method: 'POST',
+      //   header: {
+      //     'Content-Type': 'json',
+      //     role: '1',
+      //     sessionkey: sessionkey,
+      //   },
+      //   data: params,
+      //   success: function (res) {
+      //     if (res.data.code == 40001) {
+      //       wx.setStorageSync('role_id', params.role_id)
+      //     }
+      //   },
+      //   fail: function (err) {
+      //     console.log(err)
+      //   }
+      // })
     } else {
       wx.reLaunch({
         url: '/pages/login/getSetting/getSetting',
@@ -60,7 +77,7 @@ App({
           wx.request({
             url: self.globalData.domain + 'api/base/onLogin',
             header: {
-              role: '1',
+              role: '1',//角色id
               usertype: '5'
             },
             data: {
@@ -72,7 +89,7 @@ App({
               if (res.data.code == 40001) {
                 wx.setStorageSync('sessionkey', res.data.data.sessionKey)
                 wx.setStorageSync('user', res.data.data.uinfo)
-                callBack();
+                typeof callback === "function" ? callback() : false;//判断回调函数是否function
               } else {
                 console.log('拉取用户openid失败，将无法正常使用开放接口等服务', res)
               }
@@ -89,7 +106,11 @@ App({
     }
     else {
       console.log('else')
-      callBack();
+      typeof callback === "function" ? callback() : false;//判断回调函数是否function
+      // if (typeof callback === "function") {
+      //   callback();
+      // }
+      // callBack();
     }
   },
 

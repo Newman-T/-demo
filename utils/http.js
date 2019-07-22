@@ -6,7 +6,7 @@ module.exports = {
       url: apiUrl,
       header: {
         'Content-Type': 'json',
-        pid: 1,
+        // pid: 1,
         sessionkey: sessionkey,
       },
       success: yes,
@@ -38,7 +38,7 @@ module.exports = {
           wx.request({
             url: app.globalData.domain + 'api/base/onLogin',
             header: {
-              role: '1',
+              // role: '1',
               usertype: '5'
             },
             data: {
@@ -51,11 +51,8 @@ module.exports = {
                 // 是否登录判断
                 if (data.uinfo.name) {
                   wx.setStorageSync('hasLogin', true)
-                  // wx.setStorageSync('role_id', data.uinfo.role_id)
-                  // wx.setStorageSync('uid', data.uinfo.uid)
                 } else {
                   wx.setStorageSync('hasLogin', false)
-                  // wx.setStorageSync('role_id', 0)
                 }
                 app.globalData.openid = data.uinfo.openid
                 wx.setStorageSync('user', data.uinfo)
@@ -84,7 +81,7 @@ module.exports = {
         header: {
           'Content-Type': 'json',
           sessionkey: sessionkey,
-          role: '1',
+          // role: '1',
         },
         success: yes,
         fail: error
@@ -103,7 +100,7 @@ module.exports = {
           wx.request({
             url: app.globalData.domain + 'api/base/onLogin',
             header: {
-              role: '1',
+              // role: '1',
               usertype: '5'
             },
             data: {
@@ -144,7 +141,7 @@ module.exports = {
         data: params,
         method: "GET",
         header: {
-          role: '1',
+          // role: '1',
           'Content-Type': 'json',
           sessionkey: sessionkey,
         },
